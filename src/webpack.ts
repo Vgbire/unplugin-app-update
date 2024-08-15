@@ -1,3 +1,3 @@
-import unplugin from '.'
+import unplugin from "./unplunin"
 
 export default unplugin.webpack

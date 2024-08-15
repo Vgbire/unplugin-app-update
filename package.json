@@ -85,6 +85,7 @@
     }
   },
   "dependencies": {
+    "antd": "^5.20.1",
     "unplugin": "^1.12.1"
   },
   "devDependencies": {

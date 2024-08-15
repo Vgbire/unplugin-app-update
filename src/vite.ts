@@ -1,4 +1,3 @@
-import type { Plugin } from "vite"
-import unplugin from "."
+import unplugin from "./unplunin"
 
-export default unplugin.vite as (options?: any) => Plugin
+export default unplugin.vite

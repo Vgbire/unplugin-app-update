@@ -20,7 +20,7 @@
     "webpack-dev-server": "^5.0.4"
   },
   "scripts": {
-    "start": "webpack serve",
+    "start": "webpack serve --no-watch",
     "build": "webpack --mode production"
   },
   "eslintConfig": {

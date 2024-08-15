@@ -4,6 +4,9 @@ const AppUpdate = require("unplugin-app-update/webpack")
 module.exports = {
   mode: "development",
   entry: "./src/index.js",
+  output: {
+    publicPath: "/",
+  },
   module: {
     rules: [
       {
@@ -37,10 +40,13 @@ module.exports = {
   },
   devServer: {
     port: 3000,
+    hot: false,
+    liveReload: false,
+    static: ["./src/public"],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./public/index.html",
+      template: "./src/index.html",
     }),
     AppUpdate.default("/public/config.json"),
   ],
