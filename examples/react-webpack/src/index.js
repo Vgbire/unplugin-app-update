@@ -5,6 +5,7 @@ import { AppUpdate } from "unplugin-app-update"
 
 const appUpdate = new AppUpdate({ url: "/config.json", time: 10000 })
 appUpdate.check()
+console.log(12312312)
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(<div>react + webpack</div>)

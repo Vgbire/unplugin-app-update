@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const AppUpdate = require("unplugin-app-update/webpack")
+const appUpdate = require("unplugin-app-update/webpack")
 
 module.exports = {
   mode: "development",
@@ -48,6 +48,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
-    AppUpdate.default("/public/config.json"),
+    appUpdate.default(),
   ],
 }
