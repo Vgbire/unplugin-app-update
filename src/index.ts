@@ -1,1 +1,1 @@
-export { AppUpdate } from "./AppUpdate"
+export { AppUpdate } from "./code/AppUpdate"

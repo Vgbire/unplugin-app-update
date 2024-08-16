@@ -1,3 +1,3 @@
-import unplugin from "./unplunin"
+import unplugin from "./code/unplunin"
 
 export default unplugin.vite

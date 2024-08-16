@@ -1,6 +1,7 @@
 import { Modal } from "antd"
-import type { AnyMethod } from "./types"
+import i18n from "./i18n"
 
+type AnyMethod = (...args: any[]) => any
 type UpdateStatus = "notUpdate" | "update"
 
 interface IConfig {
@@ -8,8 +9,9 @@ interface IConfig {
 }
 
 interface AppUpdateOptions {
-  url: string
-  time: number
+  url?: string
+  time?: number
+  locate?: "zh_CN" | "en_US"
 }
 
 export class AppUpdate {
@@ -24,7 +26,14 @@ export class AppUpdate {
   callbacks: { update?: AnyMethod[]; notUpdate?: AnyMethod[] } // 保存回调
   modal: any
 
-  constructor({ url, time = 30000 }: AppUpdateOptions) {
+  constructor({
+    url = "config.json",
+    time = 30000,
+    locate,
+  }: AppUpdateOptions = {}) {
+    if (locate) {
+      i18n.changeLanguage(locate)
+    }
     this.url = url
     this.oldConfig = {}
     this.newConfig = {}
@@ -46,7 +55,7 @@ export class AppUpdate {
   }
 
   // 停止检查
-  stopCheck() {
+  stop() {
     clearInterval(this.timer)
   }
 
@@ -79,11 +88,13 @@ export class AppUpdate {
       this.on("update", () => {
         if (!this.modal) {
           this.modal = Modal.confirm({
-            title: "检测到内容更新，是否刷新页面？",
-            content: "系统发版，刷新获取最新内容",
+            title: i18n.t("updateModelTitle"),
+            content: i18n.t("updateModelContent"),
             style: {
               top: 200,
             },
+            okText: i18n.t("comfirm"),
+            cancelText: i18n.t("cancel"),
             onOk: () => {
               window.location.reload()
             },

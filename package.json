@@ -86,6 +86,7 @@
   },
   "dependencies": {
     "antd": "^5.20.1",
+    "i18next": "^23.13.0",
     "unplugin": "^1.12.1"
   },
   "devDependencies": {
