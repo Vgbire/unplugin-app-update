@@ -10,7 +10,7 @@ interface IConfig {
 
 interface AppUpdateOptions {
   url?: string
-  time?: number
+  interval?: number
   locate?: "zh_CN" | "en_US"
 }
 
@@ -20,7 +20,7 @@ export class AppUpdate {
   // 新获取的配置
   newConfig: IConfig
   url: string
-  intervalTime: number
+  interval: number
   // 定时器返回值
   timer: number
   callbacks: { update?: AnyMethod[]; notUpdate?: AnyMethod[] } // 保存回调
@@ -28,7 +28,7 @@ export class AppUpdate {
 
   constructor({
     url = "config.json",
-    time = 30000,
+    interval = 30000,
     locate,
   }: AppUpdateOptions = {}) {
     if (locate) {
@@ -38,9 +38,10 @@ export class AppUpdate {
     this.oldConfig = {}
     this.newConfig = {}
     this.callbacks = {}
-    this.intervalTime = time
+    this.interval = interval
     this.timer = 0
     this.init()
+    this.check()
   }
 
   async init() {
@@ -105,9 +106,10 @@ export class AppUpdate {
         }
       })
     }
+    this.stop()
     this.timer = setInterval(async () => {
       this.newConfig = await this.getConfig()
       this.compare()
-    }, this.intervalTime) as unknown as number
+    }, this.interval) as unknown as number
   }
 }

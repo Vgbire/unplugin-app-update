@@ -27,7 +27,7 @@ const uuid = (): string => {
   )
 }
 
-const unplugin = createUnplugin((filePath: string = "config.json") => {
+export default createUnplugin((filePath: string = "config.json") => {
   let viteOutDir = "dist"
   return {
     name: "unplugin-app-update",
@@ -81,4 +81,3 @@ const unplugin = createUnplugin((filePath: string = "config.json") => {
     },
   }
 })
-export default unplugin

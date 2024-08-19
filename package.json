@@ -1,27 +1,28 @@
 {
   "name": "unplugin-app-update",
-  "workspaces": [
-    "examples/*"
-  ],
-  "type": "module",
-  "version": "0.1.0",
-  "packageManager": "pnpm@8.6.12",
-  "description": "",
-  "license": "MIT",
-  "homepage": "https://github.com/antfu/unplugin-starter#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/antfu/unplugin-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/antfu/unplugin-starter/issues"
-  },
+  "version": "1.2.0",
+  "description": "App deployment user notification. Support webpack vite. Unrestricted framework, React, Vue, Angular can all be used",
   "keywords": [
     "unplugin",
     "vite",
     "webpack",
     "rollup",
-    "transform"
+    "plugin",
+    "update"
+  ],
+  "license": "MIT",
+  "authors": {
+    "name": "Vgbire",
+    "email": "1053254202@qq.com"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "homepage": "https://github.com/Vgbire/unplugin-app-update",
+  "repository": "https://github.com/Vgbire/unplugin-app-update",
+  "bugs": "https://github.com/Vgbire/unplugin-app-update/issues",
+  "workspaces": [
+    "examples/*"
   ],
   "exports": {
     ".": {
@@ -48,6 +49,7 @@
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "typesVersions": {
     "*": {
       "*": [
@@ -57,32 +59,11 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch src",
-    "lint": "eslint .",
-    "play": "npm -C playground run dev",
-    "prepublishOnly": "npm run build",
-    "release": "npm publish",
-    "test": "vitest"
-  },
-  "peerDependencies": {
-    "@nuxt/kit": "^3",
-    "@nuxt/schema": "^3",
-    "esbuild": "*",
-    "rollup": "^3",
-    "vite": ">=3",
-    "webpack": "^4 || ^5"
-  },
-  "peerDependenciesMeta": {
-    "webpack": {
-      "optional": true
-    },
-    "vite": {
-      "optional": true
-    }
+    "build": "tsup"
   },
   "dependencies": {
     "antd": "^5.20.1",
