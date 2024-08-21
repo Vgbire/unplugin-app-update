@@ -13,7 +13,6 @@ const getLanguage = () => {
 
 i18n.init({
   lng: getLanguage(),
-  debug: true,
   resources: {
     zh_CN: {
       translation: {
