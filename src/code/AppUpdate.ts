@@ -12,6 +12,7 @@ interface AppUpdateOptions {
   url?: string
   interval?: number
   locate?: "zh_CN" | "en_US"
+  custom?: boolean
 }
 
 export class AppUpdate {
@@ -30,6 +31,7 @@ export class AppUpdate {
     url = "config.json",
     interval = 30000,
     locate,
+    custom = false,
   }: AppUpdateOptions = {}) {
     if (locate) {
       i18n.changeLanguage(locate)
@@ -41,6 +43,27 @@ export class AppUpdate {
     this.interval = interval
     this.timer = 0
     this.init()
+    if (!custom) {
+      this.on("update", () => {
+        if (!this.modal) {
+          this.modal = Modal.confirm({
+            title: i18n.t("updateModelTitle"),
+            content: i18n.t("updateModelContent"),
+            style: {
+              top: 200,
+            },
+            okText: i18n.t("comfirm"),
+            cancelText: i18n.t("cancel"),
+            onOk: () => {
+              window.location.reload()
+            },
+            onCancel: () => {
+              this.modal = null
+            },
+          })
+        }
+      })
+    }
     this.check()
   }
 
@@ -63,7 +86,15 @@ export class AppUpdate {
   // 自定义更新、未更新回调
   on(key: UpdateStatus, callback: AnyMethod) {
     ;(this.callbacks[key] || (this.callbacks[key] = [])).push(callback)
-    return this
+  }
+
+  off(key: UpdateStatus, callback: AnyMethod) {
+    const index = (this.callbacks[key] || (this.callbacks[key] = [])).findIndex(
+      (item) => item === callback
+    )
+    if (index !== -1) {
+      this.callbacks[key].splice(index, 1)
+    }
   }
 
   dispatch(key: UpdateStatus) {
@@ -85,27 +116,6 @@ export class AppUpdate {
 
   // 开始检查
   check() {
-    if (!this.callbacks?.update?.length) {
-      this.on("update", () => {
-        if (!this.modal) {
-          this.modal = Modal.confirm({
-            title: i18n.t("updateModelTitle"),
-            content: i18n.t("updateModelContent"),
-            style: {
-              top: 200,
-            },
-            okText: i18n.t("comfirm"),
-            cancelText: i18n.t("cancel"),
-            onOk: () => {
-              window.location.reload()
-            },
-            onCancel: () => {
-              this.modal = null
-            },
-          })
-        }
-      })
-    }
     this.stop()
     this.timer = setInterval(async () => {
       this.newConfig = await this.getConfig()
