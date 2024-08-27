@@ -84,7 +84,7 @@ When developing locally, it is necessary to place a config.json file in the publ
 manually change the hash value to simulate project construction<br>
 If webpack or vite adjusts the public directory, you should new AppUpdate ({url:'your/custome/path'})
 ```js
-// public/config.json
+// /public/config.json
 {
   hash: "123456"
 }
@@ -93,6 +93,7 @@ If webpack or vite adjusts the public directory, you should new AppUpdate ({url:
 404 Error<br>
 During production and local development, it is common to encounter a 404 error where config. json cannot be found<br>
 ```js
+// webpack.config.js or vite.config.ts
 {
   output: {
     // Modified the access path after construction

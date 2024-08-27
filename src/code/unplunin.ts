@@ -27,6 +27,21 @@ const uuid = (): string => {
   )
 }
 
+const generateConfig = (configPath: string, hash: string) => {
+  // 确保目录存在
+  mkdirSync(path.dirname(configPath), { recursive: true })
+  writeFileSync(
+    configPath,
+    JSON.stringify(
+      {
+        hash,
+      },
+      null,
+      2
+    )
+  )
+}
+
 export default createUnplugin((filePath: string = "config.json") => {
   let viteOutDir = "dist"
   return {
@@ -38,17 +53,7 @@ export default createUnplugin((filePath: string = "config.json") => {
       },
       closeBundle() {
         const configPath = path.join(process.cwd(), viteOutDir, filePath)
-        mkdirSync(path.dirname(configPath), { recursive: true })
-        writeFileSync(
-          configPath,
-          JSON.stringify(
-            {
-              hash: uuid(),
-            },
-            null,
-            2
-          )
-        )
+        generateConfig(configPath, uuid())
       },
     },
 
@@ -64,18 +69,7 @@ export default createUnplugin((filePath: string = "config.json") => {
             compiler.options.output.path as string,
             filePath
           )
-          // 确保目录存在
-          mkdirSync(path.dirname(configPath), { recursive: true })
-          writeFileSync(
-            configPath,
-            JSON.stringify(
-              {
-                hash: compilation.hash,
-              },
-              null,
-              2
-            )
-          )
+          generateConfig(configPath, compilation.hash)
         }
       )
     },

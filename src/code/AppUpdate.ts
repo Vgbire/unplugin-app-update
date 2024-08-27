@@ -103,7 +103,6 @@ export class AppUpdate {
     })
   }
 
-  // 如果新旧 length 一样无更新，否则为已更新
   compare() {
     if (this.newConfig.hash === this.oldConfig.hash) {
       this.dispatch("notUpdate")
